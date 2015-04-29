@@ -1,8 +1,20 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 
-a {
-  color: #00B7FF;
-}
+*                   { margin:0; padding: 0px}
+body                {font:16px "Lucida Grande", sans-serif;}
+h2                  {font:13px;}
+
+#page-wrap          { margin: 2% auto; color:white; margin-top: 5%}
+#page-wrap > .main  { border: 1px solid #999; padding: 1%;
+                        margin-bottom: 1px; color:black;}
+
+section > div       { padding: 20px;}
+header, nav, section{background: #eee; text-align: center;}
+footer              {background: #eee; text-align: center;}
+<<<<<<< HEAD
+a                   { padding: 0px; color: #00B7FF; margin-top: 15px;}
+=======
+nav span            { margin: 0px 10px 0px 0px;}
+
+img                 {width: 20%;}
+>>>>>>> creditos
+

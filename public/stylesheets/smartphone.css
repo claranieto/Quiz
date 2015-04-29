@@ -1,0 +1,9 @@
+
+body                {background: #333;}
+
+#page-wrap:after    { content: "Smartphone Layout";}
+
+h2 span, section h3 { float:left; width:15%; height: 200px;}
+body                {font-size: xx-large;}
+footer, input       {font-size: large;}
+
