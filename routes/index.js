@@ -8,6 +8,8 @@ router.get('/', function (req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+router.param('quizId', quizController.load); //autoload :quizId
+
 router.get("/author", function(req,res){
 	res.render('author', {title: 'Quiz'});
 });
