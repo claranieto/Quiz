@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+    
+  <body>
+    Añadir comentario: <p>
+
+    <form method="post" action="/quizes/<%=quizid%>/comments/">
+        <input type="text" id="comment" name="comment[texto]" value=""/><p>
+        <button type="submit">Enviar</button>
+    </form>
+  </body>
+</html>
