@@ -17,8 +17,63 @@
         
         <p><strong>Comentarios:</strong></p>
         <%for(index in quiz.Comments){%>
-            <p>-<%=quiz.Comments[index].texto%></p>
+                <p>- <%=quiz.Comments[index].texto%>
+                        <a href="/quizes/<%= quiz.id %>/comments/<%=quiz.Comments[index].id%>/publish"><button>Publicar</button></a>
+                </p>    
         <% } %>
-        
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

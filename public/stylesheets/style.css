@@ -6,6 +6,7 @@ h2                  {font:13px;}
 #page-wrap          { margin: 2% auto; color:white; margin-top: 5%}
 #page-wrap > .main  { border: 1px solid #999; padding: 1%;
                         margin-bottom: 1px; color:black;}
+#page-wrap > .rigth {float: right;}
 
 section > div       { padding: 20px;}
 header, nav, section{background: #eee; text-align: center;}
