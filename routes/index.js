@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
 
 //AUTOLOAD DE COMANDOS CON :quizId
 router.param('quizId', quizController.load); //autoload :quizId
-//router.param('commentId', commentController.load); //autoload :commentId
+router.param('commentId', commentController.load); //autoload :commentId
 
 //RUTA DE AUTOR
 router.get("/author", function(req,res){
@@ -40,7 +40,7 @@ router.delete('/quizes/:quizId(\\d+)',      sessionController.loginRequired, qui
 //DEFINICIÓN DE RUTAS DE COMENTARIOS 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
-//router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 module.exports = router;
 
