@@ -47,7 +47,7 @@ app.use (function(req, res, next){
             // y está declarado el tiempo
             if(req.session.user.inicio){
                 var actual = new Date().getTime();
-                if ((actual - req.session.user.inicio) >= 10000){
+                if ((actual - req.session.user.inicio) >= 120000){
                     req.session.user = undefined;
                 }else{
                     req.session.user.inicio = new Date().getTime();
