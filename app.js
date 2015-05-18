@@ -35,10 +35,29 @@ app.use(function(req, res, next){
     }
     
     //hacer visible req.session en las vistas
-    res.locals.session = req.session; //copia la sesión para que esté accesible en la vistas
+    res.locals.session = req.session; //copia la sesión para que esté accesible en la vistas    
     next();
 });
 
+
+app.use (function(req, res, next){
+    
+        //si existe un usuario
+        if (req.session.user){ 
+            // y está declarado el tiempo
+            if(req.session.user.inicio){
+                var actual = new Date().getTime();
+                if ((actual - req.session.user.inicio) >= 10000){
+                    req.session.user = undefined;
+                }else{
+                    req.session.user.inicio = new Date().getTime();
+                }
+            }else{
+                req.session.user.inicio = new Date().getTime();
+            }
+        }
+    next();
+});
 
 
 app.use('/', routes);
