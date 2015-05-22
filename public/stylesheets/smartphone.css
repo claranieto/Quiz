@@ -6,4 +6,5 @@ body                {background: #333;}
 h2 span, section h3 { float:left; width:15%; height: 200px;}
 body                {font-size: xx-large;}
 footer, input       {font-size: large;}
+.quiz_img           {float: none;}
 

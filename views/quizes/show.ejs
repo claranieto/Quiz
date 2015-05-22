@@ -6,6 +6,10 @@
 		<link rel = 'stylesheet' href= '/stylesheets/style.css' />
 	</head>
 	<body>
+        <%if (quiz.image){%>
+            <p><img class="quiz_img" src="/media/<%= quiz.image %>"></p>
+        <%}%>
+        
 		<form method="get" action="/quizes/<%= quiz.id %>/answer">
             Pregunta: <%= quiz.pregunta %> <p>
             <input type="text" name="respuesta" value="Respuesta"/>

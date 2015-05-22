@@ -1,0 +1,11 @@
+//sequelize.sync() crea e inicializa tabla de preguntas en DB
+sequelize.sync().then(function(){
+	Quiz.count().then(function(count){
+		if(count === 0){
+			Quiz.create({ pregunta: 'Capital de Italia',
+						  respuest: 'Roma'
+						})
+			.then(function(){cosole.log('Base de datos inicializada')});
+		};
+	});
+});
