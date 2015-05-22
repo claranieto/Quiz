@@ -30,6 +30,9 @@
             <span><a href="/quizes">Preguntas</a></span>
             <span><a href="/author">Autor</a></span>
             <span><a href="/quizes/stadistics">Estadísticas</a></span>
+            <%if(session.user){%>
+                <span><a href="/user/<%=session.user.id%>/quizes">Mis preguntas</a></span>
+            <%}%>
         </nav>
         
         <section class="main" id="s1">
@@ -52,50 +55,3 @@
     </div>
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

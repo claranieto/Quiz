@@ -30,6 +30,13 @@ exports.load = function(req, res , next, quizId){
 
 // GET /quizes
 exports.index = function(req, res, next){
+    
+    var options = {};
+    if (req.user){ //req.user es creado por autoload de usuario
+                   // si la ruta lleva el parámetro .quizId
+        options.where = {UserId: req.user.id}
+    }
+    
     if (req.query.search != null){ //se quiere buscar algo concreto
         req.query.search = "%"+req.query.search+"%"; //quitar espacios
         models.Quiz.findAll({where: ["pregunta like ?", req.query.search]})
@@ -48,8 +55,8 @@ exports.index = function(req, res, next){
         ).catch(function(error){ next(error);})
             
     }else{
-        models.Quiz.findAll().then(function(quizes){
-            res.render('quizes/index', {quizes: quizes, errors: []});
+        models.Quiz.findAll(options).then(function(quizes){
+            res.render('quizes/index.ejs', {quizes: quizes, errors: []});
             }
 	    ).catch(function(error){next(error);})
     }
