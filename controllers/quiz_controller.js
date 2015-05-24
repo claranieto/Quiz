@@ -32,10 +32,17 @@ exports.load = function(req, res , next, quizId){
 exports.index = function(req, res, next){
     
     var options = {};
-    if (req.user){ //req.user es creado por autoload de usuario
-                   // si la ruta lleva el parámetro .quizId
+    
+    
+    if (req.user){ //req.user es creado por autoload de usuario // si la ruta lleva el parámetro .quizId
         options.where = {UserId: req.user.id}
     }
+    
+    if(req.session && req.session.user){ //se ha hecho el refresco al darle a borrar o crear favorito
+        options.include = {model: models.User, as: "Fans"}
+    }
+    
+    
     
     if (req.query.search != null){ //se quiere buscar algo concreto
         req.query.search = "%"+req.query.search+"%"; //quitar espacios
@@ -56,17 +63,43 @@ exports.index = function(req, res, next){
             
     }else{
         models.Quiz.findAll(options).then(function(quizes){
+            
+            if(req.session.user){
+                quizes.forEach(function(quiz){
+                    quiz.selected = quiz.Fans.some(function(fan) {
+                        return fan.id == req.session.user.id}); //comprobamos que ese favorito corresponda al usuario conectado
+                            //si es true, ponemos el parámetro selected a ese valor.
+                });}
+            
+            
             res.render('quizes/index.ejs', {quizes: quizes, errors: []});
-            }
-	    ).catch(function(error){next(error);})
+        }).catch(function(error){next(error);})
     }
 };
 
 
 //GET/quizes/:id
 exports.show = function(req, res){
-		res.render('quizes/show', {quiz: req.quiz, errors: []});
-};
+    
+    //var options = {};
+    //options.where = {id: req.params.quizId}
+    //options.include = {model: models.User, as:"Fans"}
+    
+    models.Quiz.findAll({where: {id:req.params.quizId}, include:{model: models.User, as: "Fans"}}).then(function(quizes){
+        if (req.session.user){
+            quizes.forEach(function(quiz){
+                req.quiz.selected = quiz.Fans.some(function(fan){
+                    return fan.id === req.session.user.id});
+                    res.render('quizes/show', {quiz: req.quiz, errors: []});
+            });
+        }else{
+            res.render('quizes/show', {quiz: req.quiz, errors: []});
+        }
+    });
+}
+
+
+
 
 //GET/quizes/:idanswer
 exports.answer = function(req, res){
@@ -77,12 +110,14 @@ exports.answer = function(req, res){
 		res.render ('quizes/answer', { quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
+
 exports.new = function(req,res){
     var quiz = models.Quiz.build( //crea un objeto quiz
         {pregunta: "Pregunta", respuesta: "Respuesta"}
     );
     res.render('quizes/new', {quiz:quiz, errors: []});
 };
+
 
 exports.create = function(req, res){
     req.body.quiz.UserId = req.session.user.id;

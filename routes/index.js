@@ -7,6 +7,7 @@ var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 var stadisticsController = require('../controllers/stadistics_controller');
 var userController = require('../controllers/user_controller');
+var favouritesController = require('../controllers/favourites_controller');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -59,63 +60,10 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',    commentController.create);
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.ownershipRequired, commentController.publish);
 
+//DEFINICIÓN DE RUTAS DE /favourites
+router.get('/user/:userId(\\d+)/favourites',  favouritesController.index);
+router.put('/user/:userId(\\d+)/favourites/:quizId(\\d+)',  favouritesController.select);
+router.delete('/user/:userId(\\d+)/favourites/:quizId(\\d+)',  favouritesController.quit);
+
+
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -14,7 +14,16 @@
             Pregunta: <%= quiz.pregunta %> <p>
             <input type="text" name="respuesta" value="Respuesta"/>
             <input type="submit" value="Enviar">
-        </form>
+        </form><>
+            
+        <% if(quiz.selected) {%>
+                <form method="post" action="/user/<%= session.user.id %>/favourites/<%= quiz.id %>?_method=delete">
+                <input type="image" onClick="return confirm('Quitar de favoritos: <%= quiz.pregunta %>');" src="http://images.gofreedownload.net/yellow-star-26785.jpg" style="width:auto; max-width:14px; heigth:auto;"></form>
+        <%} else {%>
+                <form method="post" action="/user/<%= session.user.id %>/favourites/<%= quiz.id %>?_method=put">
+                <input type="image" src="http://1.bp.blogspot.com/-_RsnD2F2RFk/UnlW71TNMQI/AAAAAAAA-JE/UYSOijO5X0g/s1600/Estrella+%283%29.jpg" style="width:auto; max-width:14px; heigth:auto;"></form>
+        <%} %>
+        
         
         
         <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
