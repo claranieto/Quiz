@@ -34,6 +34,7 @@ exports.index = function(req, res, next){
     var options = {};
     
     
+<<<<<<< HEAD
     if (req.user){ //Si queremos ir a mis preguntas sólo se mostrarán aquellas que pertenezcan al usuario
         options.where = {UserId: req.user.id}
     }
@@ -45,6 +46,24 @@ exports.index = function(req, res, next){
             .then(function (quizes){
             
                     /*for (i=0; i<quizes.length; i++){
+=======
+    if (req.user){ //req.user es creado por autoload de usuario // si la ruta lleva el parámetro .quizId
+        options.where = {UserId: req.user.id}
+    }
+    
+    if(req.session && req.session.user){ //se ha hecho el refresco al darle a borrar o crear favorito
+        options.include = {model: models.User, as: "Fans"}
+    }
+    
+    
+    
+    if (req.query.search != null){ //se quiere buscar algo concreto
+        req.query.search = "%"+req.query.search+"%"; //quitar espacios
+        models.Quiz.findAll({where: ["pregunta like ?", req.query.search], order['preguntas']})
+            .then(function (quizes){
+            
+                   /* for (i=0; i<quizes.length; i++){
+>>>>>>> favoritos
                         while( quizes[i].pregunta < quizes[i-1].pregunta){
                             var p = quizes[i-1];
                             quizes[i-1] = quizes[i];
@@ -56,6 +75,7 @@ exports.index = function(req, res, next){
             }
         ).catch(function(error){ next(error);})
             
+<<<<<<< HEAD
     }else{ //
         options.include = {model: models.User, as: "Seguidores"} //incluya en quiz la propiedad de seguidores
         models.Quiz.findAll(options).then(function(quizes){ //todas las pregunta, con el campo seguidores incluido
@@ -67,6 +87,15 @@ exports.index = function(req, res, next){
                    //        quiz.selected = true;});
                     quiz.selected = quiz.Seguidores.some(function(seguidor) {//obtengo la lista de seguidores del quiz
                         return seguidor.id == req.session.user.id}); //comprobamos que ese seguidor corresponda al usuario conectado
+=======
+    }else{
+        models.Quiz.findAll(options).then(function(quizes){
+            
+            if(req.session.user){
+                quizes.forEach(function(quiz){
+                    quiz.selected = quiz.Fans.some(function(fan) {
+                        return fan.id == req.session.user.id}); //comprobamos que ese favorito corresponda al usuario conectado
+>>>>>>> favoritos
                             //si es true, ponemos el parámetro selected a ese valor.
                 });}
             
@@ -82,6 +111,7 @@ exports.show = function(req, res){
     
     //var options = {};
     //options.where = {id: req.params.quizId}
+<<<<<<< HEAD
     //options.include = {model: models.User, as:"Seguidores"}
     
     models.Quiz.findAll({where: {id:req.params.quizId}, include:{model: models.User, as: "Seguidores"}}).then(function(quizes){
@@ -89,6 +119,15 @@ exports.show = function(req, res){
             quizes.forEach(function(quiz){
                 req.quiz.selected = quiz.Seguidores.some(function(seguidor){
                     return seguidor.id === req.session.user.id});
+=======
+    //options.include = {model: models.User, as:"Fans"}
+    
+    models.Quiz.findAll({where: {id:req.params.quizId}, include:{model: models.User, as: "Fans"}}).then(function(quizes){
+        if (req.session.user){
+            quizes.forEach(function(quiz){
+                req.quiz.selected = quiz.Fans.some(function(fan){
+                    return fan.id === req.session.user.id});
+>>>>>>> favoritos
                     res.render('quizes/show', {quiz: req.quiz, errors: []});
             });
         }else{
@@ -96,9 +135,12 @@ exports.show = function(req, res){
         }
     });
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> favoritos
 
 //GET/quizes/:idanswer
 exports.answer = function(req, res){
