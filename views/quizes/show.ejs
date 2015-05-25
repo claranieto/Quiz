@@ -14,7 +14,7 @@
             Pregunta: <%= quiz.pregunta %> <p>
             <input type="text" name="respuesta" value="Respuesta"/>
             <input type="submit" value="Enviar">
-        </form><>
+        </form>
             
         <% if(quiz.selected) {%>
                 <form method="post" action="/user/<%= session.user.id %>/favourites/<%= quiz.id %>?_method=delete">

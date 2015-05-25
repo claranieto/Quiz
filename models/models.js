@@ -49,7 +49,7 @@ Quiz.belongsTo(User);
 User.hasMany(Quiz);
 
 User.belongsToMany(Quiz, {through: 'Favourites', as:"Favourites"}); //crea la tabla favourites
-Quiz.belongsToMany(User, {through: 'Favourites', as: "Fans"});
+Quiz.belongsToMany(User, {through: 'Favourites', as: "Seguidores"});
 
 
 
